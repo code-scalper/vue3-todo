@@ -14,9 +14,15 @@
     </div>
     <div class="section">
       <p v-if="todos.length === 0" class="no-todo">할일이 없습니다</p>
-      <input type="text" v-model="searchTask" class="search-task" />
+      <input
+        type="text"
+        v-model="searchTask"
+        class="search-task"
+        placeholder="검색어 입력"
+      />
+      {{ filteredTodos }}
       <ul>
-        <li v-for="(todo, index) in todos" :key="index">
+        <li v-for="(todo, index) in filteredTodos" :key="index">
           <span @click="updateLike(index)">
             <BIconHeart class="like" v-if="!todo.like" />
             <BIconHeartFill class="like-checked" v-else />
@@ -46,8 +52,14 @@ export default {
         like: false,
         isDone: false,
       },
+      searchTask: "",
       todos: [{ task: "공부하기", like: false, isDone: false }],
     };
+  },
+  computed: {
+    filteredTodos() {
+      return this.todos.filter((todo) => todo.task.includes(this.searchTask));
+    },
   },
   methods: {
     addTodo() {
@@ -159,5 +171,11 @@ h1 {
 .done {
   text-decoration: line-through;
   color: #ccc;
+}
+.search-task {
+  height: 30px;
+  width: 100%;
+  border: none;
+  text-indent: 15px;
 }
 </style>
