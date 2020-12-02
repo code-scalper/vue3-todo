@@ -1,4 +1,6 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from "vue";
+import App from "./App.vue";
+import { BootstrapIconsPlugin } from "bootstrap-icons-vue";
 
-createApp(App).mount('#app')
+const app = createApp(App);
+app.use(BootstrapIconsPlugin).mount("#app");
